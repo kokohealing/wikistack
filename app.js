@@ -1,6 +1,8 @@
 const express = require('express');
 const morgan = require('morgan');
 const models = require('./models');
+const wikiRouter = require('./routes/wiki');
+const userRouter = require('./routes/user');
 
 const app = express();
 
@@ -12,17 +14,10 @@ models.db.authenticate().then(() => {
     console.log('connected to the database');
 });
 
-app.get("/", async (req, res, next) => {
-    res.send(`
-    <!DOCTYPE HTML>
-    <html>
-        <head>
-            <title>"Hello Everyone"</title>
-            <link rel="stylesheet" href="stylesheets/style.css" />
-        </head>
-        <body>"Hello Everyone!"</body>
-    </html>
-    `);
+app.use('/wiki', wikiRouter);
+
+app.get('/', (req, res) => {
+    res.redirect('/wiki');
 });
 
 const PORT = 3000;
