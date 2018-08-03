@@ -22,7 +22,7 @@ const Page = db.define('page', {
 });
 
 function generateSlug (title) {
-  return title.replace(/\s+/g, "_").replace(/\W/g, '');
+  return title.replace(/\s+/g, "_").replace(/\W/g, '').toLowerCase();
 }
 
 Page.beforeCreate((page) => {
